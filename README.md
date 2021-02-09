@@ -40,17 +40,26 @@ the rendered DOM tree on the right:
                 └── ColorBox (etc.)
 ```
 
-Go ahead and `npm start` to see what we already have rendering in the browser.
+Go ahead and `npm start` to see what we already have rendering in the browser.  
 
 ## Deliverables
 
 (The application will error on `npm start` until the `Comment` component is
-created and exported)
+created and exported  NOT TRUE)
 
 #### `Comment` Component
 
 - Create a `Comment` component in the file, `Comment.js` within `src/` and don't forget to:
   - `import React, { Component } from 'react'` at the top of our file
+`{Component}` this syntax is known as destructuring 
+When you do an import with a constant that is going to look for the default export of the file matching this path where the library is. 
+If the file we're loading has a default export in it, that is what the constant will be equal to. 
+If we have name exports that are not default then we can import them using the curly braces by doing a destructured import. 
+
+If you're importing from a file that is exporting multiple constants you need to surround your import with curly braces 
+If you're importing from a file that has a default export you can just pass the name of the thing you're importing and then the file path. 
+
+
   - Use the `class X extends Component {}` syntax
   - export the class so it can be used in other files
   - import the class in `BlogPost`
@@ -75,26 +84,42 @@ created and exported)
   component via: `this.props.opacity`. This prop is first passed in `src/App.js`
 - If the opacity value _is greater than or equal to 0.2_:
   - the `ColorBox` component should render another `ColorBox` inside itself 
-    (recursive components!)
+    (recursive components!)  
+`Recursion`
+Whenever you have a function that can invoke itself that is a pattern called recursion. 
+Whenever you have recursion there must be a condition in place, it cannot always call itself similar to a while loop. 
+
+
   - an opacity prop should be passed to the child
+We're going to be checking in our component if the opacity is large enough. 
+The smaller the opacity gets the more faded it becomes
+If the opacity is GREATER THAN 0.2 we will render another `ColorBox` with a smaller opacity. 
+If the opacity is LESS THAN 0.2 we will not render another `ColorBox` to prevent an infinite recursion loop and instead our render method should return null. 
+
   - the passed opacity prop should be reduced by 0.1
 - If the opacity value _is less than 0.2_:
   - do not render another `ColorBox` (or else we would have infinite
     `ColorBoxes` rendering!)
   - instead, the render method should return `null`
 
+
+
 ###### Hint on ColorBox
 
 - **Watch out** for endless recursion! If your `ColorBox` component has no break
   condition to stop it from always rendering another `ColorBox`, your browser will
   likely become non-responsive. **Pre-plan** how you are going to render the
-  `ColorBox` before trying to code it.
+  `ColorBox` before trying to code it. 
 - You may find that subtracting 0.1 from your opacity prop is leading to some
   strange precision errors (try logging the opacity prop with each render). This
   is due to limitations with JavaScript float (number) types.
 - In order to render based on a conditional, you can write JavaScript logic
   directly in the `render()` block. In the example below, the `render()` method is returning
-  the evaluation of a ternary operator. If the expression `this.props.value > 100` evaluates to be true, the entire ternary expression (and thus, the return value of `render()`) evaluates to be null, otherwise, `render()` will return some JSX.
+  the evaluation of a `ternary operator`. Which is also known as the `tyranny operator`. 
+  
+  The reason it's popular in React is because we can encapsule conditional logic and a return in a single expression and that allows you to put it within render rather than having separate function or variable that defines something and then referring to that variable inside of render.  
+
+  If the expression `this.props.value > 100` evaluates to be true, the entire ternary expression (and thus, the return value of `render()`) evaluates to be null, otherwise, `render()` will return some JSX.
 
 ```js
 import React, { Component } from 'react';
